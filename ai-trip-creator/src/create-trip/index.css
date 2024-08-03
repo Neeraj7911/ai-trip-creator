@@ -17,3 +17,24 @@ body {
   width: 80%; /* Make the input take full width of the wrapper */
   box-sizing: border-box; /* Ensure padding and border are included in the width */
 }
+
+.button-with-emoji {
+  position: relative;
+  padding: 10px 20px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji {
+  margin-left: 10px; /* Space between text and emoji */
+  opacity: 0; /* Hide the emoji by default */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.button-with-emoji:hover .emoji {
+  opacity: 1; /* Show the emoji on hover */
+}
