@@ -86,7 +86,7 @@ function CreateTrip() {
         </div>
       </div>
       <div>
-        <Button className="my-10 float-right flex mr-20">Generate</Button>
+        <Button className="my-10 float-right flex mr-96">Generate</Button>
       </div>
     </div>
   );
