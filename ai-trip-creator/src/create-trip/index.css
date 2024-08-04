@@ -2,19 +2,24 @@ body {
   overflow: auto;
 }
 .b1 {
-  margin-left: 100px;
+  margin: 0 auto; /* Center the main div */
 }
+
+.container {
+  max-width: 1200px; /* Set a maximum width for the container */
+}
+
 .autocomplete-container {
-  width: 80%; /* Make the container take full width */
+  width: 100%; /* Make the container take full width */
 }
 
 .autocomplete-wrapper {
-  width: 80%; /* Ensure the wrapper takes full width */
+  width: 100%; /* Ensure the wrapper takes full width */
   max-width: 400px; /* Set a maximum width for the autocomplete component */
 }
 
 .autocomplete-input {
-  width: 80%; /* Make the input take full width of the wrapper */
+  width: 100%; /* Make the input take full width of the wrapper */
   box-sizing: border-box; /* Ensure padding and border are included in the width */
 }
 
@@ -24,7 +29,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -37,4 +42,19 @@ body {
 
 .button-with-emoji:hover .emoji {
   opacity: 1; /* Show the emoji on hover */
+}
+
+/* Hide scrollbar for WebKit browsers */
+body::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent; /* Background of the scrollbar track */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: black; /* Scrollbar color */
+  border-radius: 10px; /* Roundness of the scrollbar */
+  border: 2px solid transparent; /* Adds padding around scrollbar */
 }
