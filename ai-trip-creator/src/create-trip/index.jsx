@@ -171,7 +171,6 @@ function CreateTrip() {
               How many days are you planning your trip?
             </h2>
             <Input
-              className="autocomplete-wrapper"
               placeholder={"Enter less than 30 days"}
               type="number"
               onChange={(e) => handleInputChange("noOfDays", e.target.value)}
@@ -257,7 +256,7 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      <div className="flex float-right mr-40 mb-11">
+      <div className="flex float-right mr-40 mb-11 mt-2">
         <Button
           disabled={loading}
           className="button-with-emoji text-center"
