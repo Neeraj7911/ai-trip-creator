@@ -26,6 +26,7 @@ import axios from "axios";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/services/firebaseConfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function CreateTrip() {
   const [showEmoji, setShowEmoji] = useState(true);
@@ -33,6 +34,7 @@ function CreateTrip() {
   const [selectedTraveler, setSelectedTraveler] = useState(null);
   const [openDailog, setOpenDailog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setShowEmoji(false); // Hide the emoji when the button is clicked
@@ -105,15 +107,37 @@ function CreateTrip() {
 
   const SaveAiTrip = async (TripData) => {
     setLoading(true);
-    const user = JSON.parse(localStorage.getItem("user"));
+
+    let user;
+    try {
+      user = JSON.parse(localStorage.getItem("user"));
+    } catch (error) {
+      console.error("Error parsing user data from localStorage:", error);
+      setLoading(false);
+      return;
+    }
+
+    if (!user) {
+      console.error("No user data found in localStorage");
+      setLoading(false);
+      return;
+    }
+
     const docId = Date.now().toString();
-    await setDoc(doc(db, "AITrips", docId), {
-      userSelection: formData,
-      tripData: JSON.parse(TripData),
-      userEmail: user?.email,
-      id: docId,
-    });
-    setLoading(false);
+
+    try {
+      await setDoc(doc(db, "AITrips", docId), {
+        // Your document data here
+        tripData: TripData,
+        user: user,
+        createdAt: new Date(),
+      });
+    } catch (error) {
+      console.error("Error saving AI trip:", error);
+    } finally {
+      setLoading(false);
+      navigate(`/view-trip/${docId}`);
+    }
   };
 
   const GetUserProfile = (tokenInfo) => {
