@@ -125,18 +125,36 @@ function CreateTrip() {
 
     const docId = Date.now().toString();
 
+    // Log the data to be saved
+    console.log("Saving AI Trip with data:", {
+      tripData: TripData,
+      userSelection: {
+        location: formData?.location,
+        noOfDays: formData?.noOfDays,
+        budget: formData?.budget,
+        traveler: formData?.traveler,
+      },
+      user: user,
+      createdAt: new Date(),
+    });
+
     try {
       await setDoc(doc(db, "AITrips", docId), {
-        // Your document data here
         tripData: TripData,
+        userSelection: {
+          location: formData?.location,
+          noOfDays: formData?.noOfDays,
+          budget: formData?.budget,
+          traveler: formData?.traveler,
+        },
         user: user,
         createdAt: new Date(),
       });
+      navigate(`/view-trip/${docId}`);
     } catch (error) {
       console.error("Error saving AI trip:", error);
     } finally {
       setLoading(false);
-      navigate(`/view-trip/${docId}`);
     }
   };
 
