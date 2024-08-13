@@ -125,9 +125,25 @@ function CreateTrip() {
 
     const docId = Date.now().toString();
 
+    // Log TripData to check its format
+    console.log("TripData before parsing:", TripData);
+
+    let parsedTripData;
+    try {
+      if (typeof TripData !== "string" || !TripData.trim()) {
+        throw new Error("TripData is not a valid JSON string");
+      }
+      parsedTripData = JSON.parse(TripData);
+    } catch (error) {
+      console.error("Error parsing TripData:", error);
+      console.error("TripData content causing the error:", TripData);
+      setLoading(false);
+      return;
+    }
+
     // Log the data to be saved
     console.log("Saving AI Trip with data:", {
-      tripData: TripData,
+      tripData: parsedTripData,
       userSelection: {
         location: formData?.location,
         noOfDays: formData?.noOfDays,
@@ -140,7 +156,7 @@ function CreateTrip() {
 
     try {
       await setDoc(doc(db, "AITrips", docId), {
-        tripData: TripData,
+        tripData: parsedTripData,
         userSelection: {
           location: formData?.location,
           noOfDays: formData?.noOfDays,
@@ -174,9 +190,11 @@ function CreateTrip() {
         localStorage.setItem("user", JSON.stringify(resp?.data));
         setOpenDailog(false);
         OnGenerateTrip();
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
       });
   };
-
   return (
     <div className="b1">
       <div className="container mx-auto px-4 mt-10">
