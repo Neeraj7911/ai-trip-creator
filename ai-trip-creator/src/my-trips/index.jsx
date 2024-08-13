@@ -34,8 +34,8 @@ function Mytrips() {
     <div className="container mx-auto px-4 mt-10">
       <h2 className="font-bold text-3xl">My Trips</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-10">
-        {userTrips.map((trip) => {
-          return <UserTripCardItems key={trip.id} trip={trip} />;
+        {userTrips.map((trip, index) => {
+          <UserTripCardItems trip={trip} />;
         })}
       </div>
     </div>
